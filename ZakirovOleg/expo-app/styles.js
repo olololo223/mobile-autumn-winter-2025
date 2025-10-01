@@ -4,8 +4,36 @@ export const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
-      paddingTop: 60,
+      paddingTop: 40,
       paddingHorizontal: 16,
+    },
+    tabBar: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      backgroundColor: '#f7f7f7',
+      borderWidth: 1,
+      borderColor: '#e5e5e5',
+      borderRadius: 8,
+      padding: 6,
+      marginBottom: 12,
+    },
+    tabButton: {
+      flex: 1,
+      paddingVertical: 10,
+      borderRadius: 6,
+      alignItems: 'center',
+    },
+    tabButtonActive: {
+      backgroundColor: '#000',
+    },
+    tabText: {
+      fontSize: 16,
+      fontWeight: '600',
+      color: '#000',
+    },
+    tabTextActive: {
+      color: '#fff',
     },
     title: {
       fontSize: 20,
@@ -62,6 +90,22 @@ export const styles = StyleSheet.create({
     btnText: {
       color: '#fff',
       fontSize: 20,
+      fontWeight: '700',
+      lineHeight: 22,
+    },
+    // Large buttons (used in Stopwatch)
+    btnLg: {
+      minWidth: 110,
+      height: 48,
+      paddingHorizontal: 16,
+      borderRadius: 10,
+      backgroundColor: '#000000',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    btnLgText: {
+      color: '#fff',
+      fontSize: 18,
       fontWeight: '700',
       lineHeight: 22,
     },
