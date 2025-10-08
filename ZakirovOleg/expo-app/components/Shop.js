@@ -22,10 +22,9 @@ export default function Shop() {
     return initial;
   });
 
-  const totalAmount = PRODUCTS.reduce(
-    (sum, p) => sum + p.price * (quantities[p.id] || 0),
-    0
-  );
+  const totalAmount = PRODUCTS.reduce((sum, p) => {
+    return sum + p.price * (quantities[p.id] || 0);
+  }, 0);
 
   const increment = (id) => {
     setQuantities((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
@@ -51,8 +50,16 @@ export default function Shop() {
     return (
       <View style={styles.row}>
         <Text style={[styles.cell, styles.nameCell]}>{item.name}</Text>
-        <Text style={[styles.cell, styles.priceCell]}>{item.price.toFixed(2)}₽</Text>
-        <View style={[styles.cell, styles.qtyCell, styles.qtyControls]}>
+        <Text style={[styles.cell, styles.priceCell]}>
+          {item.price.toFixed(2)}₽
+        </Text>
+        <View
+          style={[
+            styles.cell,
+            styles.qtyCell,
+            styles.qtyControls,
+          ]}
+        >
           <TouchableOpacity style={styles.btn} onPress={() => decrement(item.id)}>
             <Text style={styles.btnText}>-</Text>
           </TouchableOpacity>
@@ -67,7 +74,6 @@ export default function Shop() {
 
   return (
     <View>
-      <Text style={styles.title}>Магазин</Text>
       <View style={styles.table}>
         {renderHeader()}
         <FlatList
