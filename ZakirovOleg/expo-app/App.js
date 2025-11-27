@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Shop from './components/Shop';
 import Stopwatch from './components/Stopwatch';
 import Gallery from './components/Gallery';
+import Auth from './components/Auth';
 import LoginScreen from './loginRegisterScreens/LoginScreen';
 import RegisterScreen from './loginRegisterScreens/RegisterScreen';
 import { useAuthStore } from './stores/auth';
@@ -46,6 +47,11 @@ export default function App() {
             name="Gallery"
             component={Gallery}
             options={{ title: 'Галерея' }}
+          />
+          <Drawer.Screen
+            name="Auth"
+            component={Auth}
+            options={{ title: 'Профиль' }}
           />
         </Drawer.Navigator>
       ) : (
