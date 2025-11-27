@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, RefreshControl, TextInput } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, RefreshControl, TextInput, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuthStore } from '../stores/auth';
 import { styles } from '../styles';
@@ -52,6 +52,96 @@ export default function Auth() {
   const [authError, setAuthError] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
 
+  // Функция для обновления токена
+  const refreshAuthToken = async () => {
+    try {
+      const refreshToken = await AsyncStorage.getItem('AUTH_REFRESH_TOKEN');
+      if (!refreshToken) {
+        throw new Error('No refresh token');
+      }
+
+      const response = await apiRequest('/auth/refresh', {
+        method: 'POST',
+        body: JSON.stringify({ refreshToken }),
+      });
+
+      if (response.success && response.data.accessToken) {
+        const newAccessToken = response.data.accessToken;
+        await AsyncStorage.setItem('AUTH_ACCESS_TOKEN', newAccessToken);
+        setAccessToken(newAccessToken);
+        return newAccessToken;
+      }
+    } catch (error) {
+      console.error('Token refresh failed:', error);
+      // Если не удалось обновить токен, разлогиниваем пользователя
+      await handleLogout();
+      throw error;
+    }
+  };
+
+  // Функция выхода
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.multiRemove([
+        'AUTH_ACCESS_TOKEN',
+        'AUTH_REFRESH_TOKEN',
+        'AUTH_USER'
+      ]);
+      setAccessToken(null);
+      setProfile(null);
+      setUsers([]);
+      setPagination(null);
+      setError(null);
+    } catch (e) {
+      console.error('Error during logout:', e);
+    }
+  };
+
+  // Улучшенная функция apiRequest с обработкой истекшего токена
+  const authApiRequest = async (url, options = {}, retry = true) => {
+    try {
+      const token = options.headers?.Authorization?.replace('Bearer ', '') || accessToken;
+      
+      const response = await fetch(`${API_BASE_URL}${url}`, {
+        ...options,
+        headers: {
+          'Content-Type': 'application/json',
+          ...options.headers,
+        },
+      });
+
+      const data = await response.json();
+
+      // Если токен истек и это первая попытка, пробуем обновить
+      if (response.status === 401 && retry) {
+        console.log('Token expired, attempting refresh...');
+        const newToken = await refreshAuthToken();
+        if (newToken) {
+          // Повторяем запрос с новым токеном
+          return authApiRequest(url, {
+            ...options,
+            headers: {
+              ...options.headers,
+              'Authorization': `Bearer ${newToken}`,
+            },
+          }, false); // false чтобы избежать бесконечного цикла
+        }
+      }
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Ошибка запроса');
+      }
+
+      return data;
+    } catch (error) {
+      if (error.message.includes('401') || error.message.includes('expired')) {
+        await handleLogout();
+        Alert.alert('Сессия истекла', 'Пожалуйста, войдите снова');
+      }
+      throw error;
+    }
+  };
+
   useEffect(() => {
     const loadToken = async () => {
       try {
@@ -73,7 +163,7 @@ export default function Auth() {
     try {
       setLoading(true);
       setError(null);
-      const response = await apiRequest('/auth/profile', {
+      const response = await authApiRequest('/auth/profile', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -94,12 +184,13 @@ export default function Auth() {
     try {
       setUsersLoading(true);
       const queryString = new URLSearchParams({ page, limit: 10 }).toString();
-      const response = await apiRequest(`/auth/users?${queryString}`, {
+      const response = await authApiRequest(`/auth/users?${queryString}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
         },
       });
+
       if (response.success && response.data) {
         setUsers(response.data.users);
         setPagination(response.data.pagination);
@@ -107,6 +198,9 @@ export default function Auth() {
       }
     } catch (e) {
       console.error('Error loading users:', e);
+      if (e.message.includes('401') || e.message.includes('expired')) {
+        setError('Сессия истекла. Войдите снова.');
+      }
     } finally {
       setUsersLoading(false);
     }
@@ -115,8 +209,13 @@ export default function Auth() {
   const onRefresh = async () => {
     if (!accessToken) return;
     setRefreshing(true);
-    await Promise.all([loadProfile(), loadUsers(accessToken, currentPage)]);
-    setRefreshing(false);
+    try {
+      await Promise.all([loadProfile(), loadUsers(accessToken, currentPage)]);
+    } catch (error) {
+      console.error('Refresh error:', error);
+    } finally {
+      setRefreshing(false);
+    }
   };
 
   const handleLogin = async () => {
@@ -149,6 +248,9 @@ export default function Auth() {
       setShowLogin(false);
       setLoginEmail('');
       setLoginPassword('');
+      
+      // Загружаем данные после успешного входа
+      loadUsers(token);
     } catch (e) {
       setAuthError(e.message || 'Ошибка входа');
     } finally {
@@ -191,11 +293,28 @@ export default function Auth() {
       setRegisterEmail('');
       setRegisterPassword('');
       setRegisterName('');
+      
+      // Загружаем данные после успешной регистрации
+      loadUsers(token);
     } catch (e) {
       setAuthError(e.message || 'Ошибка регистрации');
     } finally {
       setAuthLoading(false);
     }
+  };
+
+  // Добавляем кнопку выхода в профиль
+  const renderLogoutButton = () => {
+    if (!accessToken) return null;
+    
+    return (
+      <TouchableOpacity
+        style={[styles.btnLg, styles.authButtonRed]}
+        onPress={handleLogout}
+      >
+        <Text style={styles.btnLgText}>Выйти</Text>
+      </TouchableOpacity>
+    );
   };
 
   const renderLoginForm = () => {
@@ -312,6 +431,7 @@ export default function Auth() {
           >
             <Text style={styles.btnLgText}>Повторить</Text>
           </TouchableOpacity>
+          {renderLogoutButton()}
         </View>
       );
     }
@@ -347,6 +467,7 @@ export default function Auth() {
             </Text>
           </View>
         )}
+        {renderLogoutButton()}
       </View>
     );
   };
