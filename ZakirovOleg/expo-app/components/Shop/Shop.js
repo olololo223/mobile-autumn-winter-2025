@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
-import { styles } from '../styles';
+import { styles } from './styles';
 
 const PRODUCTS = [
   { id: '1', name: 'Молоко', price: 120 },
@@ -41,7 +41,9 @@ export default function Shop() {
     <View style={[styles.row, styles.headerRow]}>
       <Text style={[styles.cell, styles.nameCell, styles.headerText]}>Товар</Text>
       <Text style={[styles.cell, styles.priceCell, styles.headerText]}>Цена</Text>
-      <Text style={[styles.cell, styles.qtyCell, styles.headerText]}>Количество</Text>
+      <Text style={[styles.cell, styles.qtyCell, styles.headerText, styles.qtyHeaderText]}>
+        Количество
+      </Text>
     </View>
   );
 

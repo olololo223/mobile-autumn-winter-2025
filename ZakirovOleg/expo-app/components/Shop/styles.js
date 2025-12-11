@@ -1,0 +1,88 @@
+import { StyleSheet } from 'react-native';
+
+export const styles = StyleSheet.create({
+  table: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    overflow: 'hidden',
+    backgroundColor: '#fafafa',
+  },
+  headerRow: {
+    backgroundColor: '#f0f0f0',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+  },
+  cell: {
+    paddingHorizontal: 4,
+  },
+  nameCell: {
+    flex: 2,
+  },
+  priceCell: {
+    flex: 1,
+    textAlign: 'right',
+  },
+  qtyCell: {
+    flex: 2,
+  },
+  headerText: {
+    fontWeight: '700',
+  },
+  qtyHeaderText: {
+    textAlign: 'center',
+  },
+  qtyControls: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    gap: 10,
+  },
+  btn: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#000000',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  btnText: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: '700',
+    lineHeight: 22,
+  },
+  qtyText: {
+    minWidth: 28,
+    textAlign: 'center',
+    fontSize: 16,
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#e6e6e6',
+  },
+  totalBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 16,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    backgroundColor: '#f9f9f9',
+  },
+  totalLabel: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  totalValue: {
+    fontSize: 18,
+    fontWeight: '700',
+  },
+});
+
