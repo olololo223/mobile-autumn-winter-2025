@@ -1,0 +1,333 @@
+import { StyleSheet } from 'react-native';
+
+export const styles = StyleSheet.create({
+  postsContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  notAuthContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 32,
+  },
+  notAuthText: {
+    fontSize: 16,
+    color: '#777',
+    textAlign: 'center',
+  },
+  tabsContainer: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e5e5e5',
+    backgroundColor: '#fafafa',
+  },
+  tab: {
+    flex: 1,
+    paddingVertical: 16,
+    alignItems: 'center',
+    borderBottomWidth: 2,
+    borderBottomColor: 'transparent',
+  },
+  tabActive: {
+    borderBottomColor: '#000000',
+  },
+  tabText: {
+    fontSize: 16,
+    color: '#777',
+    fontWeight: '500',
+  },
+  tabTextActive: {
+    color: '#000000',
+    fontWeight: '700',
+  },
+  createButton: {
+    backgroundColor: '#000000',
+    borderRadius: 10,
+    padding: 16,
+    margin: 16,
+    alignItems: 'center',
+  },
+  createButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '700',
+  },
+  createFormContainer: {
+    margin: 16,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#e5e5e5',
+    borderRadius: 10,
+    backgroundColor: '#fafafa',
+  },
+  createFormTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    marginBottom: 16,
+  },
+  createFormInput: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 12,
+    fontSize: 16,
+    backgroundColor: '#fff',
+  },
+  createFormTextArea: {
+    minHeight: 120,
+    textAlignVertical: 'top',
+  },
+  createFormButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 8,
+  },
+  createFormButton: {
+    flex: 1,
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginHorizontal: 4,
+  },
+  createFormButtonCancel: {
+    backgroundColor: '#e5e5e5',
+  },
+  createFormButtonSubmit: {
+    backgroundColor: '#000000',
+  },
+  createFormButtonDraft: {
+    backgroundColor: '#666666',
+  },
+  createFormButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  searchContainer: {
+    marginHorizontal: 16,
+    marginTop: 0,
+    marginBottom: 8,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: '#e5e5e5',
+    borderRadius: 10,
+    backgroundColor: '#fafafa',
+  },
+  searchTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    marginBottom: 8,
+  },
+  searchRow: {
+    flexDirection: 'row',
+    gap: 8,
+    marginBottom: 8,
+  },
+  searchInput: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 10,
+    fontSize: 14,
+    backgroundColor: '#fff',
+  },
+  searchButton: {
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderRadius: 8,
+    backgroundColor: '#000',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  searchButtonSecondary: {
+    backgroundColor: '#e5e5e5',
+  },
+  searchButtonText: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#fff',
+  },
+  searchButtonTextSecondary: {
+    color: '#333',
+  },
+  postMeta: {
+    marginBottom: 10,
+  },
+  postId: {
+    fontSize: 12,
+    color: '#777',
+  },
+  postActions: {
+    flexDirection: 'row',
+    gap: 8,
+    alignItems: 'center',
+  },
+  actionButton: {
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 8,
+    backgroundColor: '#000',
+  },
+  actionButtonDanger: {
+    backgroundColor: '#fee',
+    borderWidth: 1,
+    borderColor: '#fcc',
+  },
+  actionButtonText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#fff',
+  },
+  actionButtonTextDanger: {
+    color: '#c00',
+  },
+  postsScrollContent: {
+    padding: 16,
+    paddingBottom: 16,
+  },
+  loadingContainer: {
+    padding: 32,
+    alignItems: 'center',
+  },
+  loadingText: {
+    marginTop: 12,
+    fontSize: 16,
+    color: '#777',
+  },
+  emptyContainer: {
+    padding: 32,
+    alignItems: 'center',
+  },
+  emptyText: {
+    fontSize: 16,
+    color: '#777',
+  },
+  errorContainer: {
+    margin: 16,
+    padding: 12,
+    backgroundColor: '#fee',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#fcc',
+  },
+  errorText: {
+    color: '#c00',
+    fontSize: 14,
+  },
+  postCard: {
+    borderWidth: 1,
+    borderColor: '#e5e5e5',
+    borderRadius: 10,
+    backgroundColor: '#fafafa',
+    padding: 16,
+    marginBottom: 16,
+  },
+  postHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: 12,
+  },
+  postTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    flex: 1,
+    marginRight: 8,
+  },
+  deleteButton: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: '#fee',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  deleteButtonText: {
+    fontSize: 24,
+    color: '#c00',
+    fontWeight: '700',
+    lineHeight: 24,
+  },
+  postContent: {
+    fontSize: 16,
+    color: '#333',
+    lineHeight: 24,
+    marginBottom: 12,
+  },
+  postFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    paddingTop: 12,
+    borderTopWidth: 1,
+    borderTopColor: '#e5e5e5',
+    gap: 8,
+  },
+  postAuthor: {
+    fontSize: 14,
+    color: '#777',
+    fontWeight: '500',
+    flex: 1,
+    flexWrap: 'wrap',
+  },
+  postDate: {
+    fontSize: 12,
+    color: '#999',
+    minWidth: 80,
+  },
+  paginationContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 16,
+    marginTop: 8,
+    borderTopWidth: 1,
+    borderTopColor: '#e5e5e5',
+  },
+  paginationButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 8,
+    backgroundColor: '#000000',
+  },
+  paginationButtonDisabled: {
+    backgroundColor: '#ccc',
+    opacity: 0.5,
+  },
+  paginationButtonText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  paginationText: {
+    fontSize: 14,
+    color: '#777',
+  },
+  publishButton: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
+    backgroundColor: '#28a745',
+  },
+  publishButtonText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#fff',
+  },
+  draftBadge: {
+    backgroundColor: '#ffc107',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 4,
+    alignSelf: 'flex-start',
+    marginBottom: 8,
+  },
+  draftBadgeText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#000',
+  },
+});
+
